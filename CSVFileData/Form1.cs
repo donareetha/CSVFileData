@@ -22,11 +22,11 @@ namespace CSVFileData
         }
         private void BindData()
         {
-
-            using (var reader = new StreamReader("C:\\Users\\Josekutty\\Desktop\\WindowsFormsAppLatest1\\WindowsFormsAppLatest\\data.csv"))
+           
+            using (var reader = new StreamReader(@"..\..\CSVFiles\data.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                records = csv.GetRecords<Data>().ToList();
+                records = csv.GetRecords<Data>().Where(r=>r.StationName != string.Empty).ToList();
             }
             dataGridView1.DataSource = records;
             BindComboBox();
@@ -34,7 +34,7 @@ namespace CSVFileData
 
         private void BindComboBox()
         {
-            using (var csvReader = new StreamReader("C:\\Users\\Josekutty\\Desktop\\WindowsFormsAppLatest1\\WindowsFormsAppLatest\\combo_example.csv"))
+            using (var csvReader = new StreamReader(@"..\..\CSVFiles\combo_example.csv"))
             using (var csvContent = new CsvReader(csvReader, CultureInfo.InvariantCulture))
             {
                 var comboBoxItems = csvContent.GetRecords<Item>().ToList();
